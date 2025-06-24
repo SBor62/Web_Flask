@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg mt-5">
+                <div class="card-body p-4">
+                    <!-- Заголовок с иконкой -->
+                    <div class="text-center mb-4">
+                        <h1 class="h3 mb-3 fw-normal">
+                            <i class="bi bi-person-plus-fill me-2"></i>Регистрация
+                        </h1>
+                        <p class="text-muted">Создайте новый аккаунт</p>
+                    </div>
+
+                    <!-- Форма регистрации -->
+                    <form method="post" action="{{ url_for('auth.register') }}" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <!-- Поле имени пользователя -->
+                        <div class="mb-3">
+                            {{ form.username.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-badge-fill"></i>
+                                </span>
+                                {{ form.username(class="form-control" + (" is-invalid" if form.username.errors else ""), placeholder="Придумайте логин") }}
+                            </div>
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="text-muted">От 3 до 20 символов</small>
+                        </div>
+
+                        <!-- Поле пароля -->
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-key-fill"></i>
+                                </span>
+                                {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""), placeholder="Придумайте пароль") }}
+                            </div>
+                            {% if form.password.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.password.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="text-muted">Минимум 6 символов</small>
+                        </div>
+
+                        <!-- Подтверждение пароля -->
+                        <div class="mb-4">
+                            {{ form.confirm_password.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-key"></i>
+                                </span>
+                                {{ form.confirm_password(class="form-control" + (" is-invalid" if form.confirm_password.errors else ""), placeholder="Повторите пароль") }}
+                            </div>
+                            {% if form.confirm_password.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.confirm_password.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Кнопка регистрации -->
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-person-check-fill me-2"></i>Зарегистрироваться
+                            </button>
+                        </div>
+
+                        <!-- Ссылка на вход -->
+                        <div class="text-center">
+                            <p class="text-muted mb-0">Уже есть аккаунт?</p>
+                            <a href="{{ url_for('auth.login') }}" class="text-decoration-none">
+                                Войти в систему
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Дополнительные стили -->
+<style>
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-success {
+        background-color: #198754;
+        border: none;
+        padding: 0.5rem;
+        transition: all 0.3s;
+    }
+    .btn-success:hover {
+        background-color: #157347;
+        transform: translateY(-2px);
+    }
+    .input-group-text {
+        background-color: #f8f9fa;
+    }
+    small.text-muted {
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Заголовок с анимацией -->
+            <h1 class="display-4 mb-4 animate__animated animate__bounceIn">Кликер!</h1>
+
+            <!-- Счетчик кликов -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-body py-4">
+                    <h2 class="card-title mb-3">Ваш результат:</h2>
+                    <div class="display-3 text-primary fw-bold mb-3">
+                        {{ current_user.clicks }}
+                    </div>
+                    <p class="text-muted">кликов</p>
+                </div>
+            </div>
+
+            <!-- Кнопка для кликов -->
+            <div class="d-grid gap-2">
+                <a href="{{ url_for('main.click') }}" class="btn btn-primary btn-lg py-3 fs-3 shadow">
+                    <i class="bi bi-mouse-fill me-2"></i>Кликнуть!
+                </a>
+            </div>
+
+            <!-- Дополнительная информация -->
+            <div class="mt-5">
+                <div class="alert alert-info">
+                    <i class="bi bi-lightbulb-fill me-2"></i>
+                    Кликайте быстрее, чтобы увеличить счет!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Подключение иконок Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<!-- Анимации -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<style>
+    /* Дополнительные стили */
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: all 0.3s;
+    }
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+    }
+    .btn-primary:active {
+        transform: translateY(1px);
+    }
+    .card {
+        border: none;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+</style>
+
+<script>
+    // Простая анимация при клике (даже если страница перезагружается)
+    document.querySelector('.btn-primary').addEventListener('click', function() {
+        this.classList.add('animate__animated', 'animate__pulse');
+        setTimeout(() => {
+            this.classList.remove('animate__animated', 'animate__pulse');
+        }, 1000);
+    });
+</script>
+{% endblock %}
